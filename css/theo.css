@@ -58,3 +58,47 @@ ul ul li{
 .inorange {color:#F4A261;font-weight: bold}
 .inyellow {color:#E9C46A;font-weight: bold}
 .ingreen {color:#2A9D8F;font-weight: bold}
+
+/* ======================= SOME SPECIAL PAGES LAYOUT ======================= */
+/* Two-column layout */
+.left-column {
+    width: 50%;
+    float: left;
+  }
+.right-column {
+    width: 49%;
+    float: right;
+    padding-top: 0em;
+    margin-top: 0em;
+    text-align: left;
+}
+
+.footnote {  
+    position:absolute;
+    bottom: 2em;
+    left: 14em;
+    font-size: 0.7em;
+}
+  
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.div-img-center {
+    height: 55vh;
+    position: relative;
+}
+
+.img-img-center {
+    position: absolute; 
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%,-50%);
+    height: 200px;
+}
+
+/* ======================= SOME SPECIAL PAGES LAYOUT ======================= */
