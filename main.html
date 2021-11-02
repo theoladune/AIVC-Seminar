@@ -53,54 +53,222 @@
                     <ul>
                         <li>PhD: Design of learned video coding schemes</li>
                         <br/>
-                        <li>Our proposed codec</li>
-                        <ul>
-                            <li>Entirely <span class="ingreen">learning-based</span></li>
-                            <li>Perform the usual <span class="inorange">coding configs</span> (AI, LDP, RA)</li>
-                            <li>On par with <span class="inred">HEVC</span> (HM) @ various rate targets </li>
-                        </ul>
+                        <li class="fragment fade-up">Our proposed codec
+                            <ul>
+                                <li>Entirely <span class="ingreen">learning-based</span></li>
+                                <li>Perform the usual <span class="inorange">coding configs</span> (AI, LDP, RA)</li>
+                                <li>On par with <span class="inred">HEVC</span> (HM) @ various rate targets </li>
+                            </ul>
+                        </li>
                         <br/>
-                        <li>Experimental framework: CLIC 2021</li>
-                        <ul>
-                            <li>100 HD video sequences</li>
-                            <li>Quality measured through the MS-SSIM</li>
-                        </ul>
+                            <li class="fragment fade-up">Experimental framework: CLIC 2021
+                                <ul>
+                                    <li>100 HD video sequences</li>
+                                    <li>Quality measured through the MS-SSIM</li>
+                                </ul>
+                            </li>
+                        </span>
                     </ul>
                 </section>
 
+
+                <section style="text-align: left;" data-auto-animate>
+                    <h3> Summary </h3>
+                    <br/>
+                    <br/>
+                    <ul>
+                        <li>Codec features from an user's point of view</li>
+                        <br/>
+                        <br/>
+                        <li class="fragment fade-up">Key elements for compression performance</li>
+                    </ul>
+                </section>
+
+
                 <section style="text-align: left;">
-                    <h3>Same codec for all frame types</h3>
+                    <h3>Same NNs for all frame types</h3>
 
                         <section data-transition="none">
                             <div class="left-column">
-                                <img src="figures/coder_overview-1/I-frame-final.png" height="500px"></img>
+                                <img src="figures/features/coder_overview-1/I-frame-final.png" height="500px"></img>
                             </div>
                             <div class="right-column">
                                 <div class="div-img-center">
-                                    <img src="figures/coder_overview-1/I.png" class="img-img-center" height="200px" ></img>
+                                    <img src="figures/features/coder_overview-1/I.png" class="img-img-center" height="200px" ></img>
                                 </div>
                             </div>
                         </section>
                         <section data-transition="none">
                             <div class="left-column">
-                                <img src="figures/coder_overview-1/P-frame-final.png" height="500px"></img>
+                                <img src="figures/features/coder_overview-1/P-frame-final.png" height="500px"></img>
                             </div>
                             <div class="right-column">
                                 <div class="div-img-center">
-                                    <img src="figures/coder_overview-1/IP.png" class="img-img-center" height="200px" ></img>
+                                    <img src="figures/features/coder_overview-1/IP.png" class="img-img-center" height="200px" ></img>
                                 </div>
                             </div>
                         </section>
                         <section data-transition="none"> 
                             <div class="left-column">
-                                <img src="figures/coder_overview-1/B-frame-final.png" height="500px"></img>
+                                <img src="figures/features/coder_overview-1/B-frame-final.png" height="500px"></img>
                             </div>
                             <div class="right-column">
                                 <div class="div-img-center">
-                                    <img src="figures/coder_overview-1/IPB.png" class="img-img-center" height="200px" ></img>
+                                    <img src="figures/features/coder_overview-1/IPB.png" class="img-img-center" height="200px" ></img>
                                 </div>
                             </div>
                         </section>
+
+                        <section>
+                            <br/>
+                            <ul>
+                                <li><span class="ingreen">Identical</span> neural networks for I, P and B frames</li>
+                                <br/>
+                                <li>Frames arranged <span class="inorange">as desired</span> to set: </li>
+                                <ul>
+                                    <li>Coding configuration (AI, LDP, RA)</li>
+                                    <li>Intra frame period</li>
+                                    <li>GOP size</li>
+                                </ul>
+                            </ul>
+                        </section>
+                    </section>
+
+                    <section data-auto-animate>
+                        <h3>Setting the coding configuration</h3>
+                        <section data-transition="none">
+                            <pre><code data-trim data-noescape data-line-numbers="1-7|1-4|5-7">
+                                python aivc.py \
+                                    -i raw.yuv \                 # Raw YUV video
+                                    --bitstream_out bit.bin \    # Bitstream
+                                    -o decoded.yuv \             # Decoded YUV video
+                                    --coding_config RA \         # AI, LDP or RA
+                                    --intra_period 16 \          # For RA or LDP
+                                    --gop_size 16                # For RA only
+                            </code></pre>
+
+                            <img src="figures/features/all_frames_types/RA-gop16-IP16.png" width="1000px"></img>
+                          </section>                          
+
+
+                        <section data-transition="none">
+                            <pre><code data-trim data-noescape data-line-numbers="7">
+                                python aivc.py \
+                                    -i raw.yuv \                 # Raw YUV video
+                                    --bitstream_out bit.bin \    # Bitstream
+                                    -o decoded.yuv \             # Decoded YUV video
+                                    --coding_config RA \         # AI, LDP or RA
+                                    --intra_period 16 \          # For RA or LDP
+                                    --gop_size 8                 # For RA only
+                            </code></pre>
+
+                            <img src="figures/features/all_frames_types/RA-gop8-IP16.png" width="1000px"></img>
+                          </section>                          
+
+                          <section data-transition="none">
+                            <pre><code data-trim data-noescape data-line-numbers="6">
+                                python aivc.py \
+                                    -i raw.yuv \                 # Raw YUV video
+                                    --bitstream_out bit.bin \    # Bitstream
+                                    -o decoded.yuv \             # Decoded YUV video
+                                    --coding_config RA \         # AI, LDP or RA
+                                    --intra_period 8 \           # For RA or LDP
+                                    --gop_size 8                 # For RA only
+                            </code></pre>
+
+                            <img src="figures/features/all_frames_types/RA-gop8-IP8.png" width="1000px"></img>
+                          </section>                          
+
+                          <section data-transition="none">
+                            <pre><code data-trim data-noescape data-line-numbers="5">
+                                python aivc.py \
+                                    -i raw.yuv \                 # Raw YUV video
+                                    --bitstream_out bit.bin \    # Bitstream
+                                    -o decoded.yuv \             # Decoded YUV video
+                                    --coding_config LDP \        # AI, LDP or RA
+                                    --intra_period 8             # For RA or LDP
+                                    # --gop_size 8               # For RA only
+                            </code></pre>
+
+                            <img src="figures/features/all_frames_types/LDP-IP8.png" width="1000px"></img>
+                          </section>     
+
+                          <section data-transition="none">
+                            <pre><code data-trim data-noescape data-line-numbers="6">
+                                python aivc.py \
+                                    -i raw.yuv \                 # Raw YUV video
+                                    --bitstream_out bit.bin \    # Bitstream
+                                    -o decoded.yuv \             # Decoded YUV video
+                                    --coding_config LDP \        # AI, LDP or RA
+                                    --intra_period 16            # For RA or LDP
+                                    # --gop_size 8               # For RA only
+                            </code></pre>
+
+                            <img src="figures/features/all_frames_types/LDP-IP16.png" width="1000px"></img>
+                          </section>     
+
+                          <section data-transition="none">
+                            <pre><code data-trim data-noescape data-line-numbers="5">
+                                python aivc.py \
+                                    -i raw.yuv \                 # Raw YUV video
+                                    --bitstream_out bit.bin \    # Bitstream
+                                    -o decoded.yuv \             # Decoded YUV video
+                                    --coding_config AI \         # AI, LDP or RA
+                                    # --intra_period 16          # For RA or LDP
+                                    # --gop_size 8               # For RA only
+                            </code></pre>
+
+                            <img src="figures/features/all_frames_types/AI.png" width="1000px"></img>
+                          </section>     
+                </section>
+
+                <section data-auto-animate style="text-align: left;">
+                    <h3>Setting the rate target</h3>
+
+                    <ul>
+                        <li>One encoder-decoder pair for a single rate</li>
+                        <ul>
+                            <li>We offer <span class="ingreen">7 encoder-decoder</span> pairs</li>
+                            <li>Address rates up to a <span class="inred">a few Mbit/s</span> </li>
+                        </ul>
+                    </ul>
+                    <br/>
+                    <br/>
+
+                    <pre class="fragment fade-up"><code data-trim data-noescape data-line-numbers="1-7|8">
+                            python aivc.py \
+                                -i raw.yuv \                 # Raw YUV video
+                                --bitstream_out bit.bin \    # Bitstream
+                                -o decoded.yuv \             # Decoded YUV video  
+                                --coding_config RA \         # AI, LDP or RA
+                                --intra_period 16 \          # For RA or LDP
+                                --gop_size 16 \              # For RA only
+                                --model ms_ssim-2021cc-2     # Select model
+                    </code></pre>
+                </section>
+
+                <section data-auto-animate>
+                    <h3>Competitive performance</h3>
+
+                    <section>
+                        <img src="figures/features/performance/rd_performance.pdf" width="760px"></img>
+                    </section>
+
+                    <section style="text-align: left;">
+                        <ul>
+                            <br/>
+                            <br/>
+                            <li>On par or better than HEVC (HM 16.20)</li>
+                            <ul>
+                                <li>For all <span class="ingreen">coding configurations </span></li>
+                                <li>Across a <span class="inred">wide range</span> of rate targets </li>
+                            </ul>
+                            <br/>
+                            <li class="fragment fade-up"><span class="inorange">Best end-to-end</span> learned codec @ CLIC 21</li>
+                        </ul>
+    
+                    </section>
+
                 </section>
 
                 <section style="text-align: left;">
@@ -130,6 +298,7 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/search/search.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
+        <link rel="stylesheet" href="plugin/highlight/monokai.css">
 		<script src="plugin/highlight/highlight.js"></script>
         <script src="plugin/math/math.js"></script>
 		<script>
