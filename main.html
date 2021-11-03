@@ -228,12 +228,16 @@
                     <ul>
                         <li>One encoder-decoder pair for a single rate</li>
                         <ul>
-                            <li>We offer <span class="ingreen">7 encoder-decoder</span> pairs</li>
-                            <li>Address rates up to a <span class="inred">a few Mbit/s</span> </li>
-                        </ul>
+                            <li class="fragment fade-up"><span class="ingreen">7 encoder-decoder</span> pairs, rates up to a <span class="inred">a few Mbit/s</span></li>
+                            <li class="fragment fade-up"> Identical architecture </li>
+                            <li class="fragment fade-up">Different param $\boldsymbol{\theta}_i$ learnt through the rate constraint $\lambda_i$
+                                \[\begin{equation}
+                                \boldsymbol{\theta}_i = \mathrm{arg min}\ D + \lambda_i R
+                                \end{equation} \]
+                            </li>
+            
+                        </ul> 
                     </ul>
-                    <br/>
-                    <br/>
 
                     <pre class="fragment fade-up"><code data-trim data-noescape data-line-numbers="1-7|8">
                             python aivc.py \
@@ -268,8 +272,87 @@
                         </ul>
     
                     </section>
+                </section>
+
+
+                <!-- PART 2: KEY ELEMENTS FOR CODING PERFORMANCE  -->
+
+
+                <section class="center">
+                    <h2>
+                        PART 2:<br/>
+                        KEY ELEMENTS FOR CODING PERFORMANCE
+                    </h2>
+                </section>
+
+                <section data-auto-animate>
+                    <h3>System overview</h3>
+
+                    <section data-auto-animate>
+                        <img src="figures/key_elements/coder-overview-2/Global_diagram.png" width="1000px"></img>
+                    </section>
+
+                    <section data-auto-animate>
+                        <img src="figures/key_elements/coder-overview-2/Global_diagram-motion.png" width="650px"></img>
+                    </section>
+
+                    <section data-auto-animate>
+                        <img src="figures/key_elements/coder-overview-2/Global_diagram-pred.png" width="650px"></img>
+                    </section>
+
+                    <section data-auto-animate>
+                        <img src="figures/key_elements/coder-overview-2/Global_diagram-exploit.png" width="650px"></img>
+                    </section>
 
                 </section>
+
+
+                <section data-auto-animate style="text-align: left;">
+                
+                    <h3>System overview</h3>
+                    <br/>
+
+                    <ul>
+                        <li>Usual auto-encoder based video coder...</li>
+                        <ul>
+                            <li class="fragment fade-up">Estimate and send motion info</li>
+                            <li class="fragment fade-up">Temporal prediction through motion compensation</li>
+                            <li class="fragment fade-up">Send correction to the prediction</li>
+                        </ul> 
+                        <br/>
+                        <li class="fragment fade-up">... With a few particularities</li>
+                        <ul>
+                            <li class="fragment fade-up">Decoder-side <span class="ingreen">inference of motion info</span></li>
+                            <li class="fragment fade-up"><span class="inred">Enhanced transmission</span> of the prediction correction</li>
+                            <li class="fragment fade-up"><span class="inorange">Skip mode</span>: supplementary coding mode</li>
+                        </ul> 
+
+
+                    </ul>
+                </section>
+
+                <section data-auto-animate>
+                    <h3>Decoder-side motion info</h3>
+
+                    <img src="figures/key_elements/decoder-side-motion/motion-all.png" height="250px"></img>
+
+                    <section data-transition="none">
+                    </section>
+
+                    <section data-transition="none" >
+                        <video data-autoplay loop=true src="videos/key-elements/decoder-side-motion/raw_and_vprev_even_pad.mp4" height=230px style="text-align: center; margin-left: auto; margin-right: auto; display: block;"> </video>
+                        
+                        <div class="left-column">
+                            <div style="text-align: center;">Frame to code</div>
+                        </div>
+                        <div class="right-column">
+                            <div style="text-align: center;">Motion info</div>
+                        </div>
+                    </section>
+                </section>
+
+
+
 
                 <section style="text-align: left;">
                     <h3>A test video</h3>
@@ -311,6 +394,7 @@
 				center: false,
 				hash: true,
                 autoplay: true,
+                slideNumber: true,
 
                 math: {
                     mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
