@@ -73,19 +73,6 @@ ul ul li{
     text-align: left;
 }
 
-.left-column-center{
-    width: 50%;
-    text-align: center;
-}
-
-.right-column-center {
-    width: 49%;
-    padding-top: 0em;
-    margin-top: 0em;
-    text-align: center;
-    float: right;
-}
-
 .footnote {  
     position:absolute;
     bottom: 2em;
