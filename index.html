@@ -424,24 +424,95 @@
                         <ul>
                             <li class="fragment fade-up">Particularly efficient for <span class="inred">lower rates</span></li>
                         </ul>
-                        </section>
+                    </section>
 
                 </section>
 
                 <section>
-                    <h3>Send the prediction correction</h3>
+
+                    <section data-transition="none">
+                        <h3>Exploit the prediction</h3>
+                        <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="350px"></img>
+                        <ul style="text-align: left;">
+                            <li>Two ways of leveraging the prediction</li>
+                            <ul>
+                                <li class="fragment fade-up">Skip mode: <span class="inred">copy prediction</span></li>
+                            </ul>
+                        </ul>    
+                    </section>
+
+
+                    <section data-transition="none">
+                        <h3>Exploit the prediction</h3>
+                        <img src="figures/key_elements/send-prediction-correction/cnet.png" height="350px"></img>
+                        <ul style="text-align: left;">
+                            <li>Two ways of leveraging the prediction</li>
+                            <ul>
+                                <li>Skip mode: <span class="inred">copy prediction</span></li>
+                                <li><span class="ingreen">Sending correction</span> with a NN</li>
+                            </ul>
+                        </ul>    
+                    </section>
                 </section>
 
+                <section>
+                    <h3>Sending the prediction correction</h3>
+                    <img src="figures/key_elements/send-prediction-correction/cnet-zoom.png" height="300px"></img>
+                    <ul style="text-align: left;">
+                        <li class="fragment fade-up"> Conditional coding to send the correction</li>
+                        <ul>
+                            <li class="fragment fade-up">Frame to code and prediction mixed in a <span class="inred">latent domain</span></span></li>
+                            <li class="fragment fade-up"><span class="ingreen">Richer mixture</span> than the usual residual coding</span></li>
+                            <li class="fragment fade-up">Spare <span class="inorange">30% rate</span> vs. residual coding</span></li>
+                        </ul>
+                    </ul>    
+                </section>
 
-                <section style="text-align: left;">
-                    <h3>Some math test</h3>
-                    We want to optimize
+                <section>
+                    <section>
+                    <h3>Skip mode</h3>
+                    <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="350px"></img>
+                    <ul style="text-align: left;">
+                        <li>Skip mode is an additional coding mode</li>
+                        <ul>
+                            <li class="fragment fade-up">Copy areas of the prediction <span class="inred">well predicted enough</span></li>
+                            <li class="fragment fade-up">Selected by the <span class="ingreen">motion network</span></li>
+                        </ul>
+                    </ul>    
+                    </section>
+                
+                    <section>
+                        <h3>Skip mode</h3>
+                        <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="350px"></img>
+                        <ul style="text-align: left;">
+                            <li>Skip mode is an additional coding mode</li>
+                            <ul>
+                                <li class="fragment fade-up">Copy areas of the prediction <span class="inred">well predicted enough</span></li>
+                                <li class="fragment fade-up">Selected by the <span class="ingreen">motion network</span></li>
+                            </ul>
+                        </ul>    
+                    </section>
+                </section>
 
-                    \[\begin{aligned}
-                    \dot{x} &amp; = \sigma(y-x) \\
-                    \dot{y} &amp; = \rho x - y - xz \\
-                    \dot{z} &amp; = -\beta z + xy
-                    \end{aligned} \]
+                <!-- Visual example for the skip mode goes here  -->
+
+                <section class="center">
+                    <h2>
+                        CONCLUSION
+                    </h2>
+                </section>
+
+                <section data-auto-animate>
+                    <h3>Conclusion</h3>
+                    <ul style="text-align: left;">
+                        <li>The proposed codec is</li>
+                        <ul>
+                            <li class="fragment fade-up">Built only with <span class="inred">neural networks</span></li>
+                            <li class="fragment fade-up">Able to achieve the usual <span class="ingreen">coding configurations </span></li>
+                            <li class="fragment fade-up"><span class="inorange">competitive </span> with HEVC</li>
+                        </ul>
+                    </ul>
+
                 </section>
 
             </div>
