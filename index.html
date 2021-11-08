@@ -480,17 +480,76 @@
                         </ul>
                     </ul>    
                     </section>
+                </section>
                 
                     <section>
                         <h3>Skip mode</h3>
-                        <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="350px"></img>
-                        <ul style="text-align: left;">
-                            <li>Skip mode is an additional coding mode</li>
-                            <ul>
-                                <li class="fragment fade-up">Copy areas of the prediction <span class="inred">well predicted enough</span></li>
-                                <li class="fragment fade-up">Selected by the <span class="ingreen">motion network</span></li>
-                            </ul>
-                        </ul>    
+                        <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="290px"></img>
+
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/rawframe_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 33%;">
+                                <span style="text-align: left; font-size: 0.9em;">Frame to code</span>                        
+                            </div>
+                        </section>
+    
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/raw_and_vprev_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 66%;">
+                                <span style="text-align: left; font-size: 0.9em; margin-left: 40px;">Frame to code&emsp;&emsp;&emsp;&emsp;<span class="inred">Motion info</span></span>                        
+                            </div>
+                        </section>
+    
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/raw_and_vprev_and_vnext_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 99%;">
+                                <span style="text-align: left; font-size: 0.9em; margin-left: -35px;">Frame to code&emsp;&emsp;&emsp;&emsp;<span class="inred">Motion info</span>&emsp;&emsp;&emsp;<span class="ingreen">Motion info</span></span>                        
+                           
+                            </div>
+                        </section>
+    
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/raw_and_pred_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 66%;">
+                                <span style="text-align: left; font-size: 0.9em; margin-left: 40px;">Frame to code&emsp;&emsp;&emsp;&emsp;<span class="inred">Prediction</span></span>                        
+                            </div>
+                        </section>
+
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/prediction_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 33%;">
+                                <span style="text-align: left; font-size: 0.9em;">Prediction</span>                        
+                            </div>
+                        </section>
+
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/pred_and_alpha_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 66%;">
+                                <span style="text-align: left; font-size: 0.9em; margin-left: 40px;">Prediction&emsp;&emsp;&emsp;&emsp;<span class="inred">Coding mode</span></span>                        
+                            </div>
+                        </section>
+
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/pred_and_alpha_and_skippart_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 99%;">
+                                <span style="text-align: left; font-size: 0.9em; margin-left: -35px;">Prediction&emsp;&emsp;&emsp;&emsp;<span class="inred">Coding mode</span>&emsp;&emsp;&emsp;<span class="ingreen">Skip mode</span></span>                        
+                            </div>
+                        </section>
+
+                        <section data-transition="none">
+                            <video data-autoplay loop=true src="videos/key-elements/skip-mode/pred_and_alpha_and_codecpart_even_pad.mp4" height=160px style="float: left;"> </video>
+                            <br/>
+                            <div style="width: 99%;">
+                                <span style="text-align: left; font-size: 0.9em; margin-left: -35px;">Prediction&emsp;&emsp;&emsp;&emsp;<span class="inred">Coding mode</span>&emsp;&emsp;&emsp;<span class="ingreen">Correction</span></span>                        
+                            </div>
+                        </section>
                     </section>
                 </section>
 
