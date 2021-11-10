@@ -199,7 +199,7 @@
                             <img src="figures/features/all_frames_types/LDP-IP8.png" width="1000px"></img>
                           </section>     
 
-                          <section data-transition="none">
+                          <!-- <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="6">
                                 python aivc.py \
                                     -i raw.yuv \                 # Raw YUV video
@@ -211,7 +211,7 @@
                             </code></pre>
 
                             <img src="figures/features/all_frames_types/LDP-IP16.png" width="1000px"></img>
-                          </section>     
+                          </section>      -->
 
                           <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="5">
@@ -220,7 +220,7 @@
                                     --bitstream_out bit.bin \    # Bitstream
                                     -o decoded.yuv \             # Decoded YUV video
                                     --coding_config AI \         # AI, LDP or RA
-                                    # --intra_period 16          # For RA or LDP
+                                    # --intra_period 8           # For RA or LDP
                                     # --gop_size 8               # For RA only
                             </code></pre>
 
@@ -245,7 +245,7 @@
                         </ul> 
                     </ul>
 
-                    <pre class="fragment fade-up"><code data-trim data-noescape data-line-numbers="1-7|8">
+                    <pre class="fragment fade-up"><code data-trim data-noescape data-line-numbers="8">
                             python aivc.py \
                                 -i raw.yuv \                 # Raw YUV video
                                 --bitstream_out bit.bin \    # Bitstream
