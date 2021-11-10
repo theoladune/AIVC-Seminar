@@ -64,31 +64,25 @@
                                 <li>On par with <span class="inred">HEVC</span> (HM) @ various rate targets </li>
                             </ul>
                         </li>
-                        <br/>
+                        <!-- <br/>
                             <li class="fragment fade-up">Experimental framework: CLIC 2021
                                 <ul>
                                     <li>100 HD video sequences</li>
                                     <li>Quality measured through the MS-SSIM</li>
                                 </ul>
+                            </li> -->
+                            <br/>
+                            <li class="fragment fade-up">Talk in two parts
+                            <ul>
+                                <li>Codec features from an user's point of view</li>
+                                <li>Key elements for compression performance</li>
+                            </ul>
                             </li>
-                        </span>
                     </ul>
                 </section>
 
 
-                <section style="text-align: left;" data-auto-animate>
-                    <h3> Summary </h3>
-                    <br/>
-                    <br/>
-                    <ul>
-                        <li>Codec features from an user's point of view</li>
-                        <br/>
-                        <br/>
-                        <li class="fragment fade-up">Key elements for compression performance</li>
-                    </ul>
-                </section>
-
-                <section class="center">
+                <section class="center" data-auto-animate>
                     <h2>
                         PART 1:<br/>
                         CODEC FEATURES
@@ -131,6 +125,7 @@
                         </section>
 
                         <section>
+                            <br/>
                             <br/>
                             <ul>
                                 <li><span class="ingreen">Identical</span> neural networks for I, P and B frames</li>
@@ -279,7 +274,13 @@
                                 <li>Across a <span class="inred">wide range</span> of rate targets </li>
                             </ul>
                             <br/>
-                            <li class="fragment fade-up"><span class="inorange">Best end-to-end</span> learned codec @ CLIC 21</li>
+                            <li class="fragment fade-up"><span class="inorange">Best end-to-end</span> learned codec @ CLIC 21
+                                <ul>
+                                    <li>Compress HD video sequences @ 1 Mbit/s</li>
+                                    <li>Get the highest quality (MS-SSIM) </li>
+                                </ul>
+    
+                            </li>
                         </ul>
     
                     </section>
@@ -435,8 +436,16 @@
                         <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="320px"></img>
                         <ul style="text-align: left;">
                             <li>Two ways of leveraging the prediction</li>
+                        </ul>    
+                    </section>
+
+                    <section data-transition="none">
+                        <h3>Exploit the prediction</h3>
+                        <img src="figures/key_elements/send-prediction-correction/skip.png" height="320px"></img>
+                        <ul style="text-align: left;">
+                            <li>Two ways of leveraging the prediction</li>
                             <ul>
-                                <li class="fragment fade-up">Skip mode: <span class="inred">copy prediction</span></li>
+                                <li>Skip mode: <span class="inred">copy prediction</span></li>
                             </ul>
                         </ul>    
                     </section>
@@ -472,7 +481,7 @@
                 <section>
                     <section>
                     <h3>Skip mode</h3>
-                    <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="350px"></img>
+                    <img src="figures/key_elements/send-prediction-correction/skip.png" height="350px"></img>
                     <ul style="text-align: left;">
                         <li>Skip mode is an additional coding mode</li>
                         <ul>
@@ -556,7 +565,7 @@
 
                 <!-- Visual example for the skip mode goes here  -->
 
-                <section class="center">
+                <section class="center" data-auto-animate>
                     <h2>
                         CONCLUSION
                     </h2>
@@ -564,6 +573,7 @@
 
                 <section data-auto-animate>
                     <h3>Conclusion</h3>
+                    <br/>
                     <ul style="text-align: left;">
                         <li>The proposed codec is</li>
                         <ul>
@@ -571,6 +581,18 @@
                             <li class="fragment fade-up">Able to achieve the usual <span class="ingreen">coding configurations </span></li>
                             <li class="fragment fade-up"><span class="inorange">competitive </span> with HEVC</li>
                         </ul>
+                        <br/>
+                        <li class="fragment fade-up">Feel free to try it!
+                        <ul>
+                            <li>
+                                <span style="color: blue;">
+                                    <a href="https://github.com/Orange-OpenSource/AIVC" style="font-style:italic">https://github.com/Orange-OpenSource/AIVC</a>
+                                </span>
+            
+                            </li>
+                        </ul>
+                        </li>
+
                     </ul>
 
                 </section>
