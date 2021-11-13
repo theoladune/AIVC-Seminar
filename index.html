@@ -326,10 +326,10 @@
 
                     <ul>
                         <li>Usual auto-encoder based video coder...</li>
-                        <ul>
-                            <li class="fragment fade-up">Estimate and send motion info</li>
-                            <li class="fragment fade-up">Temporal prediction through motion compensation</li>
-                            <li class="fragment fade-up">Send correction to the prediction</li>
+                        <ul class="fragment fade-up">
+                            <li>Estimate and send motion info</li>
+                            <li>Temporal prediction through motion compensation</li>
+                            <li>Send correction to the prediction</li>
                         </ul> 
                         <br/>
                         <li class="fragment fade-up">... With a few particularities</li>
@@ -414,7 +414,7 @@
                         <ul>
                             <li>Conditioning transform allows</li>
                             <ul>
-                                <li class="fragment fade-up">Decoder-side <span class="inred">motion inference</span></li>
+                                <li>Decoder-side <span class="inred">motion inference</span></li>
                                 <li class="fragment fade-up"><span class="ingreen">Spare rate</span> and get <span class="inorange">more precise </span> motion info</li>
                             </ul>
                         </ul>
@@ -423,7 +423,7 @@
                     <section>
                         <img src="figures/key_elements/decoder-side-motion/rd.pdf" width="760px"></img>
                         <ul>
-                            <li class="fragment fade-up">Particularly efficient for <span class="inred">lower rates</span></li>
+                            <li>Particularly efficient for <span class="inred">lower rates</span></li>
                         </ul>
                     </section>
 
@@ -482,12 +482,13 @@
                     <section>
                     <h3>Skip mode</h3>
                     <img src="figures/key_elements/send-prediction-correction/skip.png" height="350px"></img>
+                    <br/>
                     <ul style="text-align: left;">
                         <li>Skip mode is an additional coding mode</li>
                         <ul>
                             <li class="fragment fade-up">Copy areas of the prediction <span class="inred">well predicted enough</span></li>
                             <li class="fragment fade-up">Selected by the <span class="ingreen">motion network</span></li>
-                            <li class="fragment fade-up">Offer better <span class="inorange">content adaptation</span></li>
+                            <!-- <li class="fragment fade-up">Offer better <span class="inorange">content adaptation</span></li> -->
                         </ul>
                     </ul>    
                     </section>
@@ -495,7 +496,7 @@
                 
                     <section>
                         <h3>Skip mode</h3>
-                        <img src="figures/key_elements/send-prediction-correction/cnet-and-skip.png" height="260px"></img>
+                        <img src="figures/key_elements/coder-overview-2/Global_diagram.png" height="260px"></img>
                         <br/>
 
                         <section data-transition="none">
