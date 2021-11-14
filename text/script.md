@@ -76,6 +76,8 @@ rely on B frames
 
 And we can even do all intra coding with only standalone images.
 
+So using, the different parameters, we have a quite flexible coder, able to use any coding configuration.
+
 # Setting the rate target
 
 So once we have chosen the coding configuration, we may want to set the rate target.
@@ -100,7 +102,7 @@ In practice, you just have to provide which model you want to use to compress th
 
 # Competitive performance
 
-The pre-trained models we provide alongside the code offer performance
+The pre-trained models we provide offer performance
 competitive with HEVC. On this graph, you see rate-quality curves, for 3 coding
 configurations : all intra, low-delay P and random access. The dashed lines
 represent the performance of HEVC, evaluated through the HM. The solid lines
@@ -120,15 +122,15 @@ coding configurations and rate targets.
 
 ---
 
-This learned coder scored the best performance among all learned coders at the
+Moreover, this learned coder scored the best performance among all learned coders at the
 CLIC 21 challenge. This further legitimizes the results obtained by our
 coder.
 
 # Part 2
 
 Alright, so we've seen how we can use our codec to actually compress videos.
-Now, we'll have a look at some of the key elements with respect to
-the coding performance.
+Now, we'll have a look at some of the key elements which are important to obtain
+great coding performance.
 
 # System overview
 
@@ -157,7 +159,7 @@ added to get the reconstructed frame.
 
 # System overview 2
 
-Summing things up, we have a quite usual auto-encoder-based video coder.
+Summing things up, we have a quite usual learned video coder.
 
 ---
 
@@ -201,10 +203,11 @@ take place to extract motion information.
 
 ---
 
-The conditioning transform is applied only on the reference frames, and aims to
-capture the motion information already available at the decoder. This
-information is shown as a red cube on the diagram. In practice, it takes the
-form of some abstract latent variables.
+The conditioning transform takes place à the decoder and is applied only on the
+reference frames. It aims to capture the motion information already available at
+the decoder, that is, with no transmission required. This information is shown
+as a red cube on the diagram. In practice, it takes the form of some abstract
+latent variables.
 
 ---
 
@@ -215,7 +218,7 @@ corresponds to a second set of latent variables.
 
 ---
 
-Finally, both sets of latent variables are combinied through the synthesis
+Finally, both sets of latent variables are combined through the synthesis
 transform to obtain the final motion information.
 
 ---
@@ -232,18 +235,18 @@ So this is the motion resulting both from the analysis and conditioning transfor
 
 ---
 
-Let's now look at the contribution of the conditioning transform alone. This
+Let's now have a look at the contribution of the conditioning transform alone. This
 represents what can be obtained at the decoder, with no transmission. As you can
 see, the motion of the people in the background is pretty well infered at the
 decoder. However, the girl's motion in the foreground is a bit too complex to be
-infered at the decoder, it required some transmission.
+infered at the decoder, it requires some transmission.
 
 ---
 
 This is the role of the analysis transform. We see its contribution here. The
 motion of the girl in the foreground is almost entirely sent through the
-analysis transform. As expected, the motion in the background, which are already
-infered at the decoder are not sent by the analysis.
+analysis transform. As expected, the motion in the background, which is already
+infered at the decoder are is sent by the analysis.
 
 ---
 
@@ -263,9 +266,9 @@ performance is significantly improved.
 
 # Exploit the prediction
 
-Ok, so fast-forward in our coding schemes. We've obtained motion information,
+Ok, so fast-forward in our coding scheme. We've obtained motion information,
 we've used it through motion compensation and now we have a prediction
-available. In this codec, there are two ways of exploiting this prediction.
+available. In our codec, there are two ways of exploiting this prediction.
 
 ---
 
@@ -275,14 +278,19 @@ The simplest one is skip mode, a direct copy of the prediction.
 
 The second one consists in sending a correction to the prediction with a neural network.
 
+
 --- 
 
-Having these two modes allow the system to select the most suited one
+These two modes are arbitrated by the coding mode selection coming from the
+motion network.
+
+
+Having these two modes allows the system to select the most suited one
 pixel-wise, offering better content adaptation.
 
 # Sending correction
 
-Let's have a look to the second coding modes where we send a correction to the prediction.
+Let's have a look to the second coding mode where we send a correction to the prediction.
 
 ---
 
@@ -294,7 +302,7 @@ decoder-side motion inference, which is called conditional coding.
 The main idea of conditional coding is to mix in a latent domain the quantities
 present at the encoder and the decoder, namely the frame to code and its
 prediction. By doing this, we let the system learn both the optimal domain of
-representation and operation to perform the mixture.
+representation and the optimal operation to perform the mixture.
 
 ---
 
@@ -306,7 +314,7 @@ which offers a rate reduction of 30 percents.
 
 # Skip mode
 
-Besides sending a correction to the prediction, the second coding mode is the skip mode.
+Besides sending a correction to the prediction, the other coding mode is the skip mode.
 
 ---
 
@@ -339,22 +347,22 @@ sometimes disapear from the prediction.
 ---
 
 This prediction is exploited by the two available coding modes. In order to
-arbitrate between these two modes, the motion network also estimates and
+arbitrate between these two modes, the motion network estimates and
 transmits a coding mode selection.
 
 ---
 
-Here is this coding mode selection. The blue-ish areas correspond to the skip mode
+Here is this mode selection. The blue-ish areas correspond to the skip mode
 
 ---
 
 We can see the skip mode contribution here. As expected, it encompasses all the
-areas well predicted enough which correspond to the slow-moving objects, such as
-the background.
+areas well predicted enough that can be directly copied. These areas correspond
+to the slow-moving objects, such as the background.
 
 ---
 
-The red areas in the coding mode are those which requires a correction to be
+The red areas in the coding mode are those which require a correction to be
 sent. Here are the contribution of the correction neural network. It is mostly
 used for the areas for which the prediction is quite inaccurate. The best
 example for this is the ball, which is obtained exclusively from this coding
@@ -372,5 +380,8 @@ the usual coding configurations.
 
 This codec is available on github, you can have a look at it if you want to test
 its performance!
+
+My thesis manuscript is also freely available, and there are a lot of technical
+details about our codec if you want to know a bit more about it.
 
 Thanks for your attention :).
