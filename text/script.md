@@ -9,8 +9,10 @@ orange.
 So let's start with a brief introduction. Last month, I defended my phD, which
 was about the design of learned video coding schemes. In this context, I built
 an entirely learning-based video coder, which strives to offer the same features
-as a traditional coder. This translates into a learned coder, competitive with HEVC
+than a traditional coder. This translates into a learned coder, competitive with HEVC
 for different rate targets and able to achieve all the usual coding configuratiuons. 
+
+---
 
 This talk will have two parts. I'll first introduce the main features of the
 codec from a user's point of view. That is, how it is possible to use our codec
@@ -90,7 +92,7 @@ allows to obtain a rate from a few kilobits per second to a few megabits per sec
 
 --- 
 
-These pre-trained models have the exact same architecture
+These pre-trained models have the same architecture
 
 ---
 
@@ -155,7 +157,8 @@ Finally, once a prediction is available, two coding modes are present to exploit
 this prediction. The simplest one is called skip mode, which is a direct copy of
 the prediction. The second mode consists in sending a correction to the
 prediction using a dedicated neural network. Both coding modes contributions are
-added to get the reconstructed frame.
+added to get the reconstructed frame. The two coding modes are abritrated using
+the coding mode selection obtained thanks to the motion network.
 
 # System overview 2
 
@@ -203,7 +206,7 @@ take place to extract motion information.
 
 ---
 
-The conditioning transform takes place à the decoder and is applied only on the
+The conditioning transform is performed at the decoder and is applied only on the
 reference frames. It aims to capture the motion information already available at
 the decoder, that is, with no transmission required. This information is shown
 as a red cube on the diagram. In practice, it takes the form of some abstract
@@ -231,22 +234,25 @@ motion.
 
 ---
 
-So this is the motion resulting both from the analysis and conditioning transform.
+So this is the motion resulting both from the analysis and conditioning transforms.
 
 ---
 
-Let's now have a look at the contribution of the conditioning transform alone. This
-represents what can be obtained at the decoder, with no transmission. As you can
-see, the motion of the people in the background is pretty well infered at the
-decoder. However, the girl's motion in the foreground is a bit too complex to be
-infered at the decoder, it requires some transmission.
+Let's now have a look at the contribution of the conditioning transform alone.
+To obtain this visualisation, we just feed the references to the conditioning
+transform in order to get the conditioning latent variables. Then we feed only
+the conditioning latent variables to the synthesis. This represents what can be
+obtained at the decoder, with no transmission. As you can see, the motion of the
+people in the background is pretty well infered at the decoder. However, the
+girl's motion in the foreground is a bit too complex to be infered at the
+decoder, it requires some transmission.
 
 ---
 
 This is the role of the analysis transform. We see its contribution here. The
 motion of the girl in the foreground is almost entirely sent through the
 analysis transform. As expected, the motion in the background, which is already
-infered at the decoder are is sent by the analysis.
+infered at the decoder is not sent by the analysis.
 
 ---
 
@@ -286,11 +292,12 @@ motion network.
 
 
 Having these two modes allows the system to select the most suited one
-pixel-wise, offering better content adaptation.
+pixel-wise, offering better content adaptation and thus better performance,
+reducing the rate by around 10%.
 
 # Sending correction
 
-Let's have a look to the second coding mode where we send a correction to the prediction.
+Let's have a look to the first coding mode where we send a correction to the prediction.
 
 ---
 
@@ -302,7 +309,7 @@ decoder-side motion inference, which is called conditional coding.
 The main idea of conditional coding is to mix in a latent domain the quantities
 present at the encoder and the decoder, namely the frame to code and its
 prediction. By doing this, we let the system learn both the optimal domain of
-representation and the optimal operation to perform the mixture.
+representation and the optimal operations to perform the mixture.
 
 ---
 
@@ -335,14 +342,17 @@ Thanks to the motion network, we have this motion information.
 
 ---
 
-Actually, as we need to consider b-frames, there are two motion maps.
+Actually, as we need to consider b-frames, there are two motion maps computed by
+the neural network.
 
 ---
 
 These motion maps are used to compute a prediction of the frame to code. We see
 here the prediction. It's quite accurate, except for some challenging areas,
 such as the ball which has a quite complex motion. As a result, the ball
-sometimes disapear from the prediction.
+sometimes disapears from the prediction. It is particularly visible when the
+girl makes the ball bounce against the ground, where we can see many artifacts
+in the prediction.
 
 ---
 
@@ -368,13 +378,15 @@ used for the areas for which the prediction is quite inaccurate. The best
 example for this is the ball, which is obtained exclusively from this coding
 mode.
 
+Ok, so this visual example concludes my talk.
+
 # Conclusion
 
-Ok, so this concludes my talk. We have presented a codec which is built only
+today, we have presented a codec which is built only
 with neural networks. It has some particularities in its design, such as motion
-inference at the decoder, or the presence of a skip mode. And that makes it able
-to get performance competitive with HEVC, for different rate targets and across
-the usual coding configurations.
+inference at the decoder, conditional coding or the presence of a skip mode. And
+that makes it able to get performance competitive with HEVC, for different rate
+targets and across the usual coding configurations.
 
 ---
 
