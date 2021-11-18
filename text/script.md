@@ -2,7 +2,8 @@
 
 Today, i'll be talking about end-to-end learned video coding. I'm going to
 introduce the open-source learned video coder that we have designed this year at
-orange.
+orange. This open source coder is coincidently called AIVC, and it is available on github at
+the address indicated below.
 
 # Intro
 
@@ -28,22 +29,24 @@ and our neural decoder with its parameters theta decoder. These two neural
 networks are trained in such a way that they are able to compress a frame $x_t$
 while exploiting information from zero to two reference frames.
 
-Here you see the coding of an I-frame, with no reference frame. 
+Here you see the coding of an I-frame, obviously with no reference frame. 
 
 ---
 
 But the same neural networks, with the same parameters can also compress P
-frames, that is they can exploit one reference frame. 
+frames, that is they can exploit one reference frame in order to send less data
+about the current frame $x_t$. 
 
 --- 
 
-And they're also able to compress B frames by using two reference frames.
+And they're also able to compress B frames by using two reference frames to
+transmit even less data.
 
 ---
 
-So, we have a single pair of neural networks to code I, P and B frames. This
-allows us to arrange these frame types as desired to achieve any coding
-configuration, with any intra frame period and gop size.
+So, we have a single pair of neural networks that are able to code I, P and B
+frames. This allows us to arrange these frame types as desired to achieve any
+coding configuration, with any intra frame period and gop size.
 
 # Setting the coding configuration
 
@@ -88,7 +91,7 @@ Currently, one encoder-decoder pair is only able to address a single rate target
 ---
 
 In order to achieve different rates, we provide 7 pre-trained models, which
-allows to obtain a rate from a few kilobits per second to a few megabits per second.
+allow to obtain a rate from a few kilobits per second to a few megabits per second.
 
 --- 
 
@@ -96,7 +99,7 @@ These pre-trained models have the same architecture
 
 ---
 
-But their parameters are trained using a different rate constraint
+But their parameters are trained using a different rate constraint lambda i
 
 --- 
 
@@ -113,20 +116,20 @@ is from the clic challenge on learned video coding, which was held at CVPR this
 year.
 
 Roughly speaking, we see that the learned codec is competitive with HEVC for
-random access and low-delay P, and it is significantly better for all intra
-coding.
+random access (in yellow) and low-delay P (in red). For all intra (in green),
+the learned coder is significantly better than HEVC.
 
 ---
 
-To sum up, with this open source coder, we provide a tool to compress videos
+To sum up, with this open source coder, we provide a way of compressing videos
 using a learned coder which has performance on par with HEVC for different
 coding configurations and rate targets.
 
 ---
 
-Moreover, this learned coder scored the best performance among all learned coders at the
-CLIC 21 challenge. This further legitimizes the results obtained by our
-coder.
+Moreover, this learned coder scored the best performance among all learned
+coders at the CLIC 21 challenge. This further legitimizes the results obtained
+by our coder.
 
 # Part 2
 
@@ -141,9 +144,10 @@ reference frames already available at the decoder. The codec has 3 main stages.
 
 ---
 
-First, a motion network estimates and transmits motion information, as well as a
-coding mode selection. This motion network is built with three neural transforms
-: the conditioning, the analysis and the synthesis. I'll detail their role later
+First, a motion neural network estimates and transmits motion information, as
+well as a coding mode selection. This motion network is built with three neural
+transforms : the conditioning, the analysis and the synthesis. These transforms
+are built with convolutional neural networks, and I'll detail their role later
 on.
 
 ---
@@ -158,7 +162,7 @@ this prediction. The simplest one is called skip mode, which is a direct copy of
 the prediction. The second mode consists in sending a correction to the
 prediction using a dedicated neural network. Both coding modes contributions are
 added to get the reconstructed frame. The two coding modes are abritrated using
-the coding mode selection obtained thanks to the motion network.
+the coding mode selection obtained thanks to the motion network as we've seen before.
 
 # System overview 2
 
@@ -177,7 +181,7 @@ particularities that are responsible for significant performance improvement.
 
 ---
 
-First, we have a mecanism to infer some motion information at the decoder-side,
+First, we have designed a mecanism to infer some motion information at the decoder-side,
 that is, without any transmission.
 
 ---
@@ -188,7 +192,7 @@ more advanced than the usual residual coding.
 ---
 
 And finally, the presence of an additional coding mode through the skip mode, is
-quite uncommon in the learned coding literature even though it helps improving
+quite uncommon in the learned coding literature even though it helps a lot improving
 the coding efficiency.
 
 For the next few slides, i'll give some details on these interesting
@@ -202,7 +206,8 @@ architecture of the neural network responsible for the motion information.
 ---
 
 It has the frame to code and its references as inputs. Two different transforms
-take place to extract motion information.
+take place to extract motion information. So, once again, these transforms are
+implemented with convolutional neural networks.
 
 ---
 
@@ -210,14 +215,14 @@ The conditioning transform is performed at the decoder and is applied only on th
 reference frames. It aims to capture the motion information already available at
 the decoder, that is, with no transmission required. This information is shown
 as a red cube on the diagram. In practice, it takes the form of some abstract
-latent variables.
+latent variable.
 
 ---
 
 The analysis transform takes place at the encoder and its role is to identify
 and transmit only the motion information missing at the decoder. This
 information is shown as a green cube on the diagram. In real life, it
-corresponds to a second set of latent variables.
+corresponds to a second latent variable.
 
 ---
 
@@ -245,7 +250,7 @@ the conditioning latent variables to the synthesis. This represents what can be
 obtained at the decoder, with no transmission. As you can see, the motion of the
 people in the background is pretty well infered at the decoder. However, the
 girl's motion in the foreground is a bit too complex to be infered at the
-decoder, it requires some transmission.
+decoder. Actually, it requires some transmission.
 
 ---
 
@@ -278,31 +283,33 @@ available. In our codec, there are two ways of exploiting this prediction.
 
 ---
 
-The simplest one is skip mode, a direct copy of the prediction.
+The simplest one is skip mode, a direct copy of the prediction, with no data
+transmission involved.
 
 ---
 
 The second one consists in sending a correction to the prediction with a neural network.
 
 
---- 
-
 These two modes are arbitrated by the coding mode selection coming from the
 motion network.
 
 
-Having these two modes allows the system to select the most suited one
-pixel-wise, offering better content adaptation and thus better performance,
-reducing the rate by around 10%.
+--- 
+
+Having these two modes available allows the system to select the most suited one
+pixel-wise, offering better content adaptation and thus better performance.
 
 # Sending correction
 
-Let's have a look to the first coding mode where we send a correction to the prediction.
+Let's have a look at the first coding mode where we send a correction to the prediction.
 
 ---
 
-To achieve this, we use an architecture identical to the one used for
-decoder-side motion inference, which is called conditional coding. 
+The usual way of transmitting a correction to the prediction is residual coding,
+where the prediction is simply subtracted to the frame to be sent. Here we
+propose to use an architecture identical to the one used for
+decoder-side motion inference. This new architecture is called conditional coding. 
 
 ---
 
@@ -325,11 +332,18 @@ Besides sending a correction to the prediction, the other coding mode is the ski
 
 ---
 
-It copies the areas of the prediction that are well predicted enough and don't require a correction to be sent. 
+It copies the areas of the prediction that are well predicted enough and don't
+require a correction to be sent. As such, skip mode does not require any bit to
+be transmitted.
 
 ---
 
-These areas are selected by the motion network.
+These areas are selected automatically by the motion network.
+
+---
+
+The presence of skip mode as an additional coding mode allows to better adapt to
+the content to be transmitted. This results in a rate reduction of around 10%.
 
 # Skip mode - visual example
 
@@ -343,7 +357,7 @@ Thanks to the motion network, we have this motion information.
 ---
 
 Actually, as we need to consider b-frames, there are two motion maps computed by
-the neural network.
+the motion neural network.
 
 ---
 
@@ -367,8 +381,9 @@ Here is this mode selection. The blue-ish areas correspond to the skip mode
 ---
 
 We can see the skip mode contribution here. As expected, it encompasses all the
-areas well predicted enough that can be directly copied. These areas correspond
-to the slow-moving objects, such as the background.
+areas well predicted enough that can be directly copied, without any
+transmission. These areas correspond to the slow-moving objects, such as the
+background.
 
 ---
 
@@ -376,22 +391,24 @@ The red areas in the coding mode are those which require a correction to be
 sent. Here are the contribution of the correction neural network. It is mostly
 used for the areas for which the prediction is quite inaccurate. The best
 example for this is the ball, which is obtained exclusively from this coding
-mode.
+mode, as it was very poorly predicted.
 
 Ok, so this visual example concludes my talk.
 
 # Conclusion
 
-today, we have presented a codec which is built only
-with neural networks. It has some particularities in its design, such as motion
-inference at the decoder, conditional coding or the presence of a skip mode. And
-that makes it able to get performance competitive with HEVC, for different rate
-targets and across the usual coding configurations.
+Today, we have presented a codec which is built only with neural networks. It
+has some particularities in its design, such as motion inference at the decoder,
+conditional coding to transmit a correction to the prediction or the presence of
+a skip mode. And that makes it able to get performance competitive with HEVC,
+for different rate targets and across the usual coding configurations.
 
 ---
 
 This codec is available on github, you can have a look at it if you want to test
 its performance!
+
+----
 
 My thesis manuscript is also freely available, and there are a lot of technical
 details about our codec if you want to know a bit more about it.
