@@ -2,16 +2,16 @@
 
 Today, i'll be talking about end-to-end learned video coding. I'm going to
 introduce the open-source learned video coder that we have designed this year at
-orange. This open source coder is coincidently called AIVC, and it is available on github at
-the address indicated below.
+orange. This open source coder is coincidently called AIVC, and it is available
+on github at the address indicated below.
 
 # Intro
 
 So let's start with a brief introduction. Last month, I defended my phD, which
 was about the design of learned video coding schemes. In this context, I built
 an entirely learning-based video coder, which strives to offer the same features
-than a traditional coder. This translates into a learned coder, competitive with HEVC
-for different rate targets and able to achieve all the usual coding configuratiuons. 
+as a traditional coder. This translates into a learned coder, competitive with HEVC
+for different rate targets and able to achieve all the usual coding configratiuons. 
 
 ---
 
@@ -66,7 +66,7 @@ configuration is depicted below.
 
 --- 
 
-It is possible to change the GOP size form 16 to 8
+It is possible to change the GOP size let's says from 16 to 8
 
 ---
 
@@ -81,7 +81,8 @@ rely on B frames
 
 And we can even do all intra coding with only standalone images.
 
-So using, the different parameters, we have a quite flexible coder, able to use any coding configuration.
+So using, the different parameters, we have a quite flexible coder, able to use
+any coding configuration.
 
 # Setting the rate target
 
@@ -95,21 +96,24 @@ allow to obtain a rate from a few kilobits per second to a few megabits per seco
 
 --- 
 
-These pre-trained models have the same architecture
+These pre-trained models have all the same architecture
 
 ---
 
-But their parameters are trained using a different rate constraint lambda i
+But their parameters are trained using a different rate constraint lambda i such
+as the rate-distortion training of the networks lead to different parameters
+theta_i. 
 
 --- 
 
-In practice, you just have to provide which model you want to use to compress the video.
+In practice, you just have to provide which model you want to use to compress
+the video.
 
 # Competitive performance
 
 The pre-trained models we provide offer performance
 competitive with HEVC. On this graph, you see rate-quality curves, for 3 coding
-configurations : all intra, low-delay P and random access. The dashed lines
+configurations : all intra, low-delay P and random access. The dashed lines 
 represent the performance of HEVC, evaluated through the HM. The solid lines
 represent the performance of our coder. The dataset used for these experiments
 is from the clic challenge on learned video coding, which was held at CVPR this
@@ -153,7 +157,8 @@ on.
 ---
 
 Then, the motion information is used to compute a temporal prediction through a
-motion compensation step. 
+motion compensation step. So we use motion compensation applied on the reference
+to get a prediction of the frame to code.
 
 ---
 
@@ -226,14 +231,14 @@ corresponds to a second latent variable.
 
 ---
 
-Finally, both sets of latent variables are combined through the synthesis
+Finally, bothlatent variables are combined through the synthesis
 transform to obtain the final motion information.
 
 ---
 
 Let's have a visual example to better grasp the interest of this mechanism. So
 we see here a video on the left and on the right, we have the resulting motion
-information, as estimated and sent by our codec. The colour indicates the
+information, as estimated by our codec. The colour indicates the
 direction of the motion while the color intensity describes the magnitude of the
 motion.
 
@@ -245,8 +250,8 @@ So this is the motion resulting both from the analysis and conditioning transfor
 
 Let's now have a look at the contribution of the conditioning transform alone.
 To obtain this visualisation, we just feed the references to the conditioning
-transform in order to get the conditioning latent variables. Then we feed only
-the conditioning latent variables to the synthesis. This represents what can be
+transform in order to get the conditioning latent variable. Then we feed only
+the conditioning latent variable to the synthesis. This represents what can be
 obtained at the decoder, with no transmission. As you can see, the motion of the
 people in the background is pretty well infered at the decoder. However, the
 girl's motion in the foreground is a bit too complex to be infered at the
@@ -290,7 +295,6 @@ transmission involved.
 
 The second one consists in sending a correction to the prediction with a neural network.
 
-
 These two modes are arbitrated by the coding mode selection coming from the
 motion network.
 
@@ -316,11 +320,14 @@ decoder-side motion inference. This new architecture is called conditional codin
 The main idea of conditional coding is to mix in a latent domain the quantities
 present at the encoder and the decoder, namely the frame to code and its
 prediction. By doing this, we let the system learn both the optimal domain of
-representation and the optimal operations to perform the mixture.
+representation and the optimal operations to perform the mixture between the
+frame and its prediction.
 
 ---
+So instead of doing a simple subtraction in image domain as it's the case for
+residual coding, we have here a complex mixture achieved in a latent domain.
 
-This results in a richer and more complex mixture than the usual residual coding
+This results in a richer and more optimal mixture than the usual residual coding
 
 ---
 
@@ -357,7 +364,10 @@ Thanks to the motion network, we have this motion information.
 ---
 
 Actually, as we need to consider b-frames, there are two motion maps computed by
-the motion neural network.
+the motion neural network. These motion maps are quite similar except for the
+color, which corresponds to the direction of the motion. This is because one
+motion map is directed towards the past and the other one is directed towards
+the future.
 
 ---
 
@@ -391,7 +401,7 @@ The red areas in the coding mode are those which require a correction to be
 sent. Here are the contribution of the correction neural network. It is mostly
 used for the areas for which the prediction is quite inaccurate. The best
 example for this is the ball, which is obtained exclusively from this coding
-mode, as it was very poorly predicted.
+mode, as it was quite poorly predicted.
 
 Ok, so this visual example concludes my talk.
 
