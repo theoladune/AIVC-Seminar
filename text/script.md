@@ -40,7 +40,7 @@ about the current frame $x_t$.
 --- 
 
 And they're also able to compress B frames by using two reference frames to
-transmit even less data.
+transmit even less data for $x_t$.
 
 ---
 
@@ -55,8 +55,8 @@ codec. These are real lines of code that allows to compress videos using our cod
 
 ---
 
-The first four lines indicates the input raw yuv video, the compressed bitstream
-and the decoded yuv video.
+The first four lines indicates the input raw yuv video, the path of the
+compressed bitstream and the path of the decoded yuv video.
 
 ---
 
@@ -211,7 +211,11 @@ architecture of the neural network responsible for the motion information.
 ---
 
 It has the frame to code and its references as inputs. Two different transforms
-take place to extract motion information. So, once again, these transforms are
+take place to extract motion information. 
+
+---
+
+So, once again, these transforms are
 implemented with convolutional neural networks.
 
 ---
@@ -231,7 +235,7 @@ corresponds to a second latent variable.
 
 ---
 
-Finally, bothlatent variables are combined through the synthesis
+Finally, both latent variables are combined through the synthesis
 transform to obtain the final motion information.
 
 ---
@@ -306,7 +310,7 @@ pixel-wise, offering better content adaptation and thus better performance.
 
 # Sending correction
 
-Let's have a look at the first coding mode where we send a correction to the prediction.
+Let's have a look at the coding mode where we send a correction to the prediction.
 
 ---
 
@@ -401,17 +405,24 @@ The red areas in the coding mode are those which require a correction to be
 sent. Here are the contribution of the correction neural network. It is mostly
 used for the areas for which the prediction is quite inaccurate. The best
 example for this is the ball, which is obtained exclusively from this coding
-mode, as it was quite poorly predicted.
+mode, as it was quite poorly predicted. This is clearly visible as a bright red
+spot in the coding mode visualisation.
+
+--- 
 
 Ok, so this visual example concludes my talk.
 
 # Conclusion
 
-Today, we have presented a codec which is built only with neural networks. It
-has some particularities in its design, such as motion inference at the decoder,
-conditional coding to transmit a correction to the prediction or the presence of
-a skip mode. And that makes it able to get performance competitive with HEVC,
-for different rate targets and across the usual coding configurations.
+Today, I have presented a codec which is built only with neural networks. 
+
+---
+
+It has some particularities in its design, such as motion inference at the
+decoder, conditional coding to transmit a correction to the prediction or the
+presence of a skip mode. And all of this makes it able to get performance
+competitive with HEVC, for different rate targets and across the usual coding
+configurations.
 
 ---
 
@@ -423,4 +434,4 @@ its performance!
 My thesis manuscript is also freely available, and there are a lot of technical
 details about our codec if you want to know a bit more about it.
 
-Thanks for your attention :).
+Thanks for your attention :). If you have some questions i'll be pleased to answer them.
