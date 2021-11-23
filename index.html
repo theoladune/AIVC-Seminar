@@ -323,7 +323,6 @@
                 
                     <h3>System overview</h3>
                     <br/>
-
                     <ul>
                         <li>Usual auto-encoder based video coder...</li>
                         <ul class="fragment fade-up">
@@ -331,17 +330,36 @@
                             <li>Temporal prediction through motion compensation</li>
                             <li>Send correction to the prediction</li>
                         </ul> 
+                    </ul>
+                    <br/>
+
+                    <img src="figures/key_elements/coder-overview-2/Global_diagram.png" style="display: block; margin-left: auto; margin-right: auto; width: 84%;"></img>
+
+                </section>
+
+                    <section data-auto-animate style="text-align: left;">
+                
+                        <h3>System overview</h3>
                         <br/>
-                        <li class="fragment fade-up">... With a few particularities</li>
+                        <ul>
+                            <li>Usual auto-encoder based video coder...</li>
+                            <ul>
+                                <li>Estimate and send motion info</li>
+                                <li>Temporal prediction through motion compensation</li>
+                                <li>Send correction to the prediction</li>
+                            </ul> 
+                            <br/>
+                        </ul>
+                        <ul>
+                        <li>... With a few particularities</li>
                         <ul>
                             <li class="fragment fade-up">Decoder-side <span class="ingreen">inference of motion info</span></li>
                             <li class="fragment fade-up"><span class="inred">Enhanced transmission</span> of the prediction correction</li>
                             <li class="fragment fade-up"><span class="inorange">Skip mode</span>: supplementary coding mode</li>
                         </ul> 
-
-
                     </ul>
-                </section>
+
+                    </section>
 
                 <section data-auto-animate>
                     <h3>Decoder-side motion inference</h3>
@@ -518,7 +536,7 @@
                         <section data-transition="none">
                             <video data-autoplay loop=true src="videos/key-elements/skip-mode/raw_and_vprev_and_vnext_even_pad.mp4" width="93%" style="float: left;"> </video>
                             <div style="width: 93%;">
-                                <span style="text-align: left; font-size: 0.9em; margin-left: -8px;">Frame to code&emsp;&emsp;&emsp;Motion info&emsp;&emsp;&emsp;Motion info</span>                        
+                                <span style="text-align: left; font-size: 0.9em; margin-left: 19px;">Frame to code&emsp;&emsp;&emsp;Motion info&emsp;&emsp;&emsp;Motion info 2</span>                        
                             </div>
                         </section>
     
