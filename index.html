@@ -145,9 +145,9 @@
                         <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="1-7|1-4|5-7">
                                 python aivc.py \
-                                    -i raw.yuv \                 # Raw YUV video
+                                    -i raw_HxW.yuv \             # Raw YUV video
                                     --bitstream_out bit.bin \    # Bitstream
-                                    -o decoded.yuv \             # Decoded YUV video
+                                    -o decoded_HxW.yuv \         # Decoded YUV video
                                     --coding_config RA \         # AI, LDP or RA
                                     --intra_period 16 \          # For RA or LDP
                                     --gop_size 16                # For RA only
@@ -160,9 +160,9 @@
                         <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="7">
                                 python aivc.py \
-                                    -i raw.yuv \                 # Raw YUV video
+                                    -i raw_HxW.yuv \             # Raw YUV video
                                     --bitstream_out bit.bin \    # Bitstream
-                                    -o decoded.yuv \             # Decoded YUV video
+                                    -o decoded_HxW.yuv \         # Decoded YUV video
                                     --coding_config RA \         # AI, LDP or RA
                                     --intra_period 16 \          # For RA or LDP
                                     --gop_size 8                 # For RA only
@@ -174,9 +174,9 @@
                           <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="6">
                                 python aivc.py \
-                                    -i raw.yuv \                 # Raw YUV video
+                                    -i raw_HxW.yuv \             # Raw YUV video
                                     --bitstream_out bit.bin \    # Bitstream
-                                    -o decoded.yuv \             # Decoded YUV video
+                                    -o decoded_HxW.yuv \         # Decoded YUV video
                                     --coding_config RA \         # AI, LDP or RA
                                     --intra_period 8 \           # For RA or LDP
                                     --gop_size 8                 # For RA only
@@ -188,9 +188,9 @@
                           <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="5">
                                 python aivc.py \
-                                    -i raw.yuv \                 # Raw YUV video
+                                    -i raw_HxW.yuv \             # Raw YUV video
                                     --bitstream_out bit.bin \    # Bitstream
-                                    -o decoded.yuv \             # Decoded YUV video
+                                    -o decoded_HxW.yuv \         # Decoded YUV video
                                     --coding_config LDP \        # AI, LDP or RA
                                     --intra_period 8             # For RA or LDP
                                     # --gop_size 8               # For RA only
@@ -202,9 +202,9 @@
                           <!-- <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="6">
                                 python aivc.py \
-                                    -i raw.yuv \                 # Raw YUV video
+                                    -i raw_HxW.yuv \             # Raw YUV video
                                     --bitstream_out bit.bin \    # Bitstream
-                                    -o decoded.yuv \             # Decoded YUV video
+                                    -o decoded_HxW.yuv \         # Decoded YUV video
                                     --coding_config LDP \        # AI, LDP or RA
                                     --intra_period 16            # For RA or LDP
                                     # --gop_size 8               # For RA only
@@ -216,9 +216,9 @@
                           <section data-transition="none">
                             <pre><code data-trim data-noescape data-line-numbers="5">
                                 python aivc.py \
-                                    -i raw.yuv \                 # Raw YUV video
+                                    -i raw_HxW.yuv \             # Raw YUV video
                                     --bitstream_out bit.bin \    # Bitstream
-                                    -o decoded.yuv \             # Decoded YUV video
+                                    -o decoded_HxW.yuv \         # Decoded YUV video
                                     --coding_config AI \         # AI, LDP or RA
                                     # --intra_period 8           # For RA or LDP
                                     # --gop_size 8               # For RA only
@@ -247,9 +247,9 @@
 
                     <pre class="fragment fade-up"><code data-trim data-noescape data-line-numbers="8">
                             python aivc.py \
-                                -i raw.yuv \                 # Raw YUV video
+                                -i raw_HxW.yuv \             # Raw YUV video
                                 --bitstream_out bit.bin \    # Bitstream
-                                -o decoded.yuv \             # Decoded YUV video  
+                                -o decoded_HxW.yuv \         # Decoded YUV video  
                                 --coding_config RA \         # AI, LDP or RA
                                 --intra_period 16 \          # For RA or LDP
                                 --gop_size 16 \              # For RA only
