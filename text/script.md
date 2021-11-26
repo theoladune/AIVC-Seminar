@@ -8,10 +8,14 @@ on github at the address indicated below.
 # Intro
 
 So let's start with a brief introduction. Last month, I defended my phD, which
-was about the design of learned video coding schemes. In this context, I built
-an entirely learning-based video coder, which strives to offer the same features
-as a traditional coder. This translates into a learned coder, competitive with HEVC
-for different rate targets and able to achieve all the usual coding configratiuons. 
+was about the design of learned video coding schemes. 
+
+---
+
+In this context, I built an entirely learning-based video coder, which strives
+to offer the same features as a traditional coder. This translates into a
+learned coder, competitive with HEVC for different rate targets and able to
+achieve all the usual coding configratiuons. 
 
 ---
 
@@ -27,7 +31,7 @@ fact that we use a single pair of neural networks to encode and decode any type
 of frame. So, we have our neural encoder with its parameters theta encoder
 and our neural decoder with its parameters theta decoder. These two neural
 networks are trained in such a way that they are able to compress a frame $x_t$
-while exploiting information from zero to two reference frames.
+while exploiting information from zero up to two reference frames.
 
 Here you see the coding of an I-frame, obviously with no reference frame. 
 
@@ -40,7 +44,7 @@ about the current frame $x_t$.
 --- 
 
 And they're also able to compress B frames by using two reference frames to
-transmit even less data for $x_t$.
+transmit even less data about $x_t$.
 
 ---
 
@@ -131,9 +135,9 @@ coding configurations and rate targets.
 
 ---
 
-Moreover, this learned coder scored the best performance among all learned
-coders at the CLIC 21 challenge. This further legitimizes the results obtained
-by our coder.
+Moreover, a previous version of this learned coder scored the best performance
+among all learned coders at the CLIC 21 challenge. This further legitimizes the
+results obtained by our coder.
 
 # Part 2
 
@@ -151,7 +155,7 @@ reference frames already available at the decoder. The codec has 3 main stages.
 First, a motion neural network estimates and transmits motion information, as
 well as a coding mode selection. This motion network is built with three neural
 transforms : the conditioning, the analysis and the synthesis. These transforms
-are built with convolutional neural networks, and I'll detail their role later
+are composed of convolutional neural networks, and I'll detail their role later
 on.
 
 ---
@@ -165,9 +169,9 @@ to get a prediction of the frame to code.
 Finally, once a prediction is available, two coding modes are present to exploit
 this prediction. The simplest one is called skip mode, which is a direct copy of
 the prediction. The second mode consists in sending a correction to the
-prediction using a dedicated neural network. Both coding modes contributions are
+prediction using a dedicated neural network. Both coding mode contributions are
 added to get the reconstructed frame. The two coding modes are abritrated using
-the coding mode selection obtained thanks to the motion network as we've seen before.
+the coding mode selection obtained thanks to the motion network we've seen before.
 
 # System overview 2
 
